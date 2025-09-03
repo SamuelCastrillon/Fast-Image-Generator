@@ -13,7 +13,7 @@ export const InputsContainer: FC<{ onGenerate: (prompt: string, options?: Genera
     }, [])
 
     return (
-        <div class="p-4 max-w-md mx-auto bg-white rounded-xl shadow-md space-y-4">
+        <header class="stiky p-4 max-w-md mx-auto bg-white rounded-xl shadow-md space-y-4">
             <h2 class="text-2xl font-bold text-center">Image Generator</h2>
             <form class="space-y-4" onSubmit={(e) => {
                 e.preventDefault();
@@ -35,5 +35,5 @@ export const InputsContainer: FC<{ onGenerate: (prompt: string, options?: Genera
                     ))}
                 </select>
             </form>
-        </div >)
+        </header >)
 }

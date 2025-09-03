@@ -23,10 +23,10 @@ export function App() {
   }
   
   return (
-    <main>
+    <div class='relative'>
       <InputsContainer onGenerate={handlerGenerateImage}/>
       <RenderResultContainer imagesGenerated={imagesGenerated} clearImages={clearImages} />
-    </main>
+    </div>
      
   )
 }
