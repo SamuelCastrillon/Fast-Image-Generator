@@ -19,11 +19,10 @@ export const InputsContainer: FC<{ onGenerate: (prompt: string, options?: Genera
                 e.preventDefault();
                 const formData = new FormData(e.target as HTMLFormElement);
                 const prompt = formData.get('prompt') as string;
-                const model = formData.get('model') as string;
-                const width = 720;
-                const height = 720;
-                console.log(prompt, model);
-                onGenerate(prompt, { model , width, height});
+                const options: GenerateImageParams = { model: formData.get('model') as string, width: 720, height: 720, nofeed: true, nologo: true, safe: false };
+
+                // console.log(prompt, options);
+                onGenerate(prompt, options);
             }}>
                 <div>
                     <label for="prompt" class="block text-sm font-medium text-gray-700">Prompt</label>
