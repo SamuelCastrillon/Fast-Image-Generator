@@ -1,4 +1,5 @@
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
 
 function generateURL(prompt: string, params?: GenerateImageParams): string {
     const url = new URL(`${API_URL}/prompt/${encodeURIComponent(prompt)}`)
