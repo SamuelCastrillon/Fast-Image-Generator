@@ -1,7 +1,12 @@
+import { generateImage } from "./api/ApiManager";
+import { InputsContainer } from "./components/InputsContainer";
+
 export function App() {
+  function handlerGenerateImage(prompt: string, options?: GenerateImageParams) {
+      generateImage(prompt, options)
+  }
+
   return (
-     <h1 class="text-3xl font-bold underline">
-    Hello world!
-  </h1>
+     <InputsContainer onGenerate={handlerGenerateImage}/>
   )
 }
