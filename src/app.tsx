@@ -17,11 +17,15 @@ export function App() {
       console.log(responce);
     })
   }
+
+  function clearImages() {
+    setImagesGenerated([]);
+  }
   
   return (
     <main>
       <InputsContainer onGenerate={handlerGenerateImage}/>
-      <RenderResultContainer imagesGenerated={imagesGenerated} />
+      <RenderResultContainer imagesGenerated={imagesGenerated} clearImages={clearImages} />
     </main>
      
   )
