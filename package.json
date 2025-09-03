@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.12",
+    "env": "^0.0.2",
     "preact": "^10.27.0",
     "tailwindcss": "^4.1.12"
   },
