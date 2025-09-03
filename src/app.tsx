@@ -2,7 +2,7 @@ import { useState } from "preact/hooks";
 import { generateImage } from "./api/ApiManager";
 import { InputsContainer } from "./components/InputsContainer";
 import { RenderResultContainer } from "./components/RenderResultContainer";
-import { UseGeminiBanana } from "./api/GeminyApiIntegration";
+// import { UseGeminiBanana } from "./api/GeminyApiIntegration";
 
 export function App() {
   const [imagesGenerated, setImagesGenerated] = useState<string[]>([]);
@@ -12,11 +12,11 @@ export function App() {
         setImagesGenerated((prev) => [...prev, responce.url]);
   })}
 
-  function handerlUseGeminiBanana(prompt: string) {
-    UseGeminiBanana({prompt}).then((responce) => {
-      console.log(responce);
-    })
-  }
+  // function handerlUseGeminiBanana(prompt: string) {
+  //   UseGeminiBanana({prompt}).then((responce) => {
+  //     console.log(responce);
+  //   })
+  // }
 
   function clearImages() {
     setImagesGenerated([]);
