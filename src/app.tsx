@@ -20,7 +20,7 @@ export function App() {
   
   return (
     <main>
-      <InputsContainer onGenerate={handerlUseGeminiBanana}/>
+      <InputsContainer onGenerate={handlerGenerateImage}/>
       <RenderResultContainer imagesGenerated={imagesGenerated} />
     </main>
      
