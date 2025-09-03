@@ -33,6 +33,11 @@ jobs:
         uses: actions/upload-pages-artifact@v1
         with:
           path: ./dist
+          # make the artifact name unique per run to avoid duplicate-name collisions
+          artifact_name: github-pages-${{ github.run_id }}
 
       - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v1
+        uses: actions/deploy-pages@v4
+        with:
+          # must match the artifact_name above
+          artifact_name: github-pages-${{ github.run_id }}
