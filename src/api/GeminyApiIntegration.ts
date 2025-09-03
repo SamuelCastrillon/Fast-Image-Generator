@@ -5,22 +5,22 @@
 import {
   GoogleGenAI,
 } from '@google/genai';
-import mime from 'mime';
-import { writeFile } from 'fs';
+// import mime from 'mime';
+// import { writeFile } from 'fs';
 
-function saveBinaryFile(fileName: string, content: Buffer) {
-  writeFile(fileName, content, 'utf8', (err) => {
-    if (err) {
-      console.error(`Error writing file ${fileName}:`, err);
-      return;
-    }
-    console.log(`File ${fileName} saved to file system.`);
-  });
-}
+// function saveBinaryFile(fileName: string, content: Buffer) {
+//   writeFile(fileName, content, 'utf8', (err) => {
+//     if (err) {
+//       console.error(`Error writing file ${fileName}:`, err);
+//       return;
+//     }
+//     console.log(`File ${fileName} saved to file system.`);
+//   });
+// }
 
-async function main() {
+export async function UseGeminiBanana({prompt}: {prompt: string}) {
   const ai = new GoogleGenAI({
-    apiKey: process.env.GEMINI_API_KEY,
+    apiKey: import.meta.env.VITE_GEMINI_API_KEY,
   });
   const config = {
     responseModalities: [
@@ -34,7 +34,7 @@ async function main() {
       role: 'user',
       parts: [
         {
-          text: `INSERT_INPUT_HERE`,
+          text: prompt,
         },
       ],
     },
@@ -45,22 +45,21 @@ async function main() {
     config,
     contents,
   });
-  let fileIndex = 0;
-  for await (const chunk of response) {
-    if (!chunk.candidates || !chunk.candidates[0].content || !chunk.candidates[0].content.parts) {
-      continue;
-    }
-    if (chunk.candidates?.[0]?.content?.parts?.[0]?.inlineData) {
-      const fileName = `ENTER_FILE_NAME_${fileIndex++}`;
-      const inlineData = chunk.candidates[0].content.parts[0].inlineData;
-      const fileExtension = mime.getExtension(inlineData.mimeType || '');
-      const buffer = Buffer.from(inlineData.data || '', 'base64');
-      saveBinaryFile(`${fileName}.${fileExtension}`, buffer);
-    }
-    else {
-      console.log(chunk.text);
-    }
-  }
-}
+//   let fileIndex = 0;
+//   for await (const chunk of response) {
+//     if (!chunk.candidates || !chunk.candidates[0].content || !chunk.candidates[0].content.parts) {
+//       continue;
+//     }
+//     if (chunk.candidates?.[0]?.content?.parts?.[0]?.inlineData) {
+//       const fileName = `ENTER_FILE_NAME_${fileIndex++}`;
+//       const inlineData = chunk.candidates[0].content.parts[0].inlineData;
+//       const fileExtension = mime.getExtension(inlineData.mimeType || '');
+//       const buffer = Buffer.from(inlineData.data || '', 'base64');
+//       saveBinaryFile(`${fileName}.${fileExtension}`, buffer);
+//     }
+//     else {
+//       console.log(chunk.text);
+//     }
+//   }
 
-main();
+}
