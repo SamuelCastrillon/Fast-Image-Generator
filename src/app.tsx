@@ -6,8 +6,9 @@ export function App() {
   const imagesGenerated: string[] = [];
 
   function handlerGenerateImage(prompt: string, options?: GenerateImageParams) {
-      generateImage(prompt, options).then((url) => {
-        imagesGenerated.push(url);    
+      generateImage(prompt, options).then((responce) => {
+        imagesGenerated.push(responce.url); 
+        console.log(responce)   
   })}
 
   return (

@@ -11,7 +11,13 @@ interface GenerateImageParams {
 }
 
 interface GenerateImageResponse {
-    image: string; // Base64 encoded image
+    url: string;
+    status: number;
+    ok: boolean;
+    redirected: boolean;
+    type: string;
+    statusText: string;
+    headers?: Headers; // Optional, depending on usage
 }
 
 interface GetModelsResponse {

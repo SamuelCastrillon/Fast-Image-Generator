@@ -14,7 +14,7 @@ function generateURL(prompt: string, params?: GenerateImageParams): string {
 }
 
 
-export async function generateImage(prompt: string, options?: GenerateImageParams): Promise<any> {
+export async function generateImage(prompt: string, options?: GenerateImageParams): Promise<GenerateImageResponse> {
     
     const requetsObjet: RequestInit = {
     method: 'GET',
@@ -24,11 +24,11 @@ export async function generateImage(prompt: string, options?: GenerateImageParam
     }
     
     try {
-        const response = await fetch(generateURL(prompt, options), requetsObjet)
+        const response: GenerateImageResponse = await fetch(generateURL(prompt, options), requetsObjet)
         if (!response.ok) {
             throw new Error(`Error: ${response}`);
         }
-        return await response
+        return response
     } catch (error) {
         console.error('Error generating image:', error);
         throw error;
