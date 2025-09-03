@@ -1,16 +1,16 @@
+import { useState } from "preact/hooks";
 import { generateImage } from "./api/ApiManager";
 import { InputsContainer } from "./components/InputsContainer";
 import { RenderResultContainer } from "./components/RenderResultContainer";
 
 export function App() {
-  const imagesGenerated: string[] = [];
+  const [imagesGenerated, setImagesGenerated] = useState<string[]>([]);
 
   function handlerGenerateImage(prompt: string, options?: GenerateImageParams) {
       generateImage(prompt, options).then((responce) => {
-        imagesGenerated.push(responce.url); 
-        console.log(responce)   
+        setImagesGenerated((prev) => [...prev, responce.url]);
   })}
-
+  
   return (
     <main>
       <InputsContainer onGenerate={handlerGenerateImage}/>
