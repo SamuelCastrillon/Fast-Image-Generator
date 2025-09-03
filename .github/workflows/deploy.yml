@@ -29,11 +29,32 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Check `dist` and report links/size
+        run: |
+          set -e
+          if [ ! -d dist ]; then echo "ERROR: dist directory not found"; ls -la; exit 1; fi
+          echo "dist size:"; du -sh dist || true
+          echo "symlinks inside dist (if any):"; find dist -type l -ls || true
+          echo "hardlinks (files with link count >1):"; find dist -type f -links +1 -ls || true
+
+      - name: Prepare clean artifact directory (dereference links)
+        run: |
+          set -e
+          rm -rf dist-clean
+          mkdir -p dist-clean
+          # Copy while dereferencing symlinks so uploaded artifact has only regular files
+          cp -aL dist/. dist-clean/
+          echo "clean artifact size:"; du -sh dist-clean || true
+          # Ensure artifact size < 10GB (Pages limit)
+          size_bytes=$(du -sb dist-clean | cut -f1)
+          max=$((10*1024*1024*1024))
+          if [ "$size_bytes" -ge "$max" ]; then echo "ERROR: artifact size >= 10GB"; exit 1; fi
+
       - name: Upload Pages artifact
         uses: actions/upload-artifact@v4
         with:
           name: github-pages-${{ github.run_id }}
-          path: ./dist
+          path: ./dist-clean
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
