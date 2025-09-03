@@ -22,6 +22,7 @@ export async function UseGeminiBanana({prompt}: {prompt: string}) {
   const ai = new GoogleGenAI({
     apiKey: import.meta.env.VITE_GEMINI_API_KEY,
   });
+  debugger
   const config = {
     responseModalities: [
         'IMAGE',
@@ -40,11 +41,19 @@ export async function UseGeminiBanana({prompt}: {prompt: string}) {
     },
   ];
 
-  const response = await ai.models.generateContentStream({
-    model,
-    config,
-    contents,
-  });
+  try {  
+      const response = await ai.models.generateContentStream({
+        model,
+        config,
+        contents,
+      });
+      debugger
+     return response;
+  } catch (error) {
+    console.error('Error generating content:', error);
+    throw error;
+  }
+
 //   let fileIndex = 0;
 //   for await (const chunk of response) {
 //     if (!chunk.candidates || !chunk.candidates[0].content || !chunk.candidates[0].content.parts) {
